@@ -1,55 +1,69 @@
+#define _GNU_SOURCE
 #include "monty.h"
 
-/**
- *  main - Main
- *
- *  @argc: Number of args
- *
- *  @argv: Command line args
- *
- *  Return: Void
- */
+unsigned int line_number = 0;
 
+/**
+ * main - control program flow
+ * @argc: argument count
+ * @argv: argument list
+ * Return: Nothing
+ */
 int main(int argc, char *argv[])
 {
-	stack_t *head = NULL;
-	char  *str = NULL, *operator_array[2], *temp;
-	size_t bufsize = 1024, line_count = 0;
-	ssize_t get_line;
-	void (*operator_function)(stack_t **stack, unsigned int line_number);
+	char **tokens = NULL; /* for tokenized list */
+	stack_t *head = NULL; /* pointer to top of stack */
+	char *buffer = NULL; /* store getline */
+	FILE *fp;
+	size_t n;
 
 	if (argc != 2)
-		fprintf(stderr, "USAGE: monty file\n"), exit(EXIT_FAILURE);
-	file = fopen(argv[1], "r");
-	if (file == NULL)
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]), exit(EXIT_FAILURE);
-	while (1)
 	{
-		get_line = getline(&str, &bufsize, file);
-		if (get_line == -1)
-			break;
-		line_count++;
-		operator_array[0] = strtok(str, "\n ");
-		if (operator_array[0] == NULL)
-			get_nop(&head, line_count);
-		else if (strcmp("push", operator_array[0]) == 0)
-		{
-			temp = strtok(NULL, "\n ");
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
 
-			get_push(&head, line_count, temp);
-		}
-		else if (operator_array[0] != NULL && operator_array[0][0] != '#')
-		{
-			operator_function = go(operator_array[0], line_count, &head);
+	fp = fopen(argv[1], "r+");
+	if (fp == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
 
-			if (operator_function == NULL && line_count == 0)
-			{
-				fprintf(stderr, "L%ld: unknown instruction %s\n",
-					line_count, operator_array[0]), exit(EXIT_FAILURE);
-			}
-		operator_function(&head, line_count);
+	while ((getline(&buffer, &n, fp)) != -1)
+	{
+		line_number++;
+		tokens = tokenize(buffer); /* result is at top of list */
+		if (tokens)
+		{
+			call(tokens, &head);
+			free(tokens);
 		}
 	}
-	fclose(file), free(str), get_free(head);
+	free(buffer);
+	free_stack(&head);
+	fclose(fp);
+
 	return (0);
+}
+
+/**
+ * free_stack - free the stack
+ * @stack: ptr to stack
+ * Return: Nothing
+ */
+void free_stack(stack_t **stack)
+{
+	stack_t *head = *stack;
+
+	while (head)
+	{
+		if (!head->next)
+		{
+			free(head);
+			break;
+		}
+		head = head->next;
+		free(head->prev);
+	}
 }
