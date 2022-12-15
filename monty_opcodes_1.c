@@ -77,6 +77,7 @@ int _isdigit(char *str)
 void monty_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
+	(void)line_number;
 
 	current = *stack;
 	while (current != NULL)
@@ -128,7 +129,7 @@ void monty_pint(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		fclose(file);
-		get_free(*stack);
+		monty_free(*stack);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);

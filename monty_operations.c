@@ -42,6 +42,6 @@ void (*go(char *op_f, unsigned int l, stack_t **stak))(stack_t**, unsigned int)
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", l, op_f);
 	fclose(file);
-	get_free(*stak);
+	monty_free(*stak);
 	exit(EXIT_FAILURE);
 }
