@@ -2,7 +2,6 @@
 #define MONTY_H
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -52,24 +51,24 @@ void (*operator_function)(stack_t **, unsigned int);
 void (*go(char *op_f, unsigned int l, stack_t **s))(stack_t**, unsigned int);
 
 
-void monty_push(stack_t **stack, unsigned int line_number, char *temp);
-void monty_pall(stack_t **stack, unsigned int line_number);
-void monty_pint(stack_t **stack, unsigned int line_number);
-void monty_pop(stack_t **stack, unsigned int line_number);
-void monty_swap(stack_t **stack, unsigned int line_number);
-void monty_add(stack_t **stack, unsigned int line_number);
-void monty_nop(stack_t **stack, unsigned int line_number);
-void monty_sub(stack_t **stack, unsigned int line_number);
-void monty_div(stack_t **stack, unsigned int line_number);
-void monty_mul(stack_t **stack, unsigned int line_number);
-void monty_mod(stack_t **stack, unsigned int line_number);
-void monty_rotl(stack_t **stack, unsigned int line_number);
-void monty_pchar(stack_t **stack, unsigned int line_number);
-void monty_rotr(stack_t **stack, unsigned int line_number);
-void monty_pstr(stack_t **stack, unsigned int line_number);
+void get_push(stack_t **stack, unsigned int line_number, char *temp);
+void get_pall(stack_t **stack, unsigned int line_number);
+void get_pint(stack_t **stack, unsigned int line_number);
+void get_pop(stack_t **stack, unsigned int line_number);
+void get_swap(stack_t **stack, unsigned int line_number);
+void get_add(stack_t **stack, unsigned int line_number);
+void get_nop(stack_t **stack, unsigned int line_number);
+void get_sub(stack_t **stack, unsigned int line_number);
+void get_div(stack_t **stack, unsigned int line_number);
+void get_mul(stack_t **stack, unsigned int line_number);
+void get_mod(stack_t **stack, unsigned int line_number);
+void get_rotl(stack_t **stack, unsigned int line_number);
+void get_pchar(stack_t **stack, unsigned int line_number);
+void get_rotr(stack_t **stack, unsigned int line_number);
+void get_pstr(stack_t **stack, unsigned int line_number);
 
-void monty_free(stack_t *stack);
+void get_free(stack_t *stack);
 int _isdigit(char *str);
 
 
-#endif
+#endif /* MONTY_H */

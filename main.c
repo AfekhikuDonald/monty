@@ -2,10 +2,14 @@
 
 /**
  *  main - Main
+ *
  *  @argc: Number of args
+ *
  *  @argv: Command line args
+ *
  *  Return: Void
  */
+
 int main(int argc, char *argv[])
 {
 	stack_t *head = NULL;
@@ -27,12 +31,12 @@ int main(int argc, char *argv[])
 		line_count++;
 		operator_array[0] = strtok(str, "\n ");
 		if (operator_array[0] == NULL)
-			monty_nop(&head, line_count);
+			get_nop(&head, line_count);
 		else if (strcmp("push", operator_array[0]) == 0)
 		{
 			temp = strtok(NULL, "\n ");
 
-			monty_push(&head, line_count, temp);
+			get_push(&head, line_count, temp);
 		}
 		else if (operator_array[0] != NULL && operator_array[0][0] != '#')
 		{
@@ -46,6 +50,6 @@ int main(int argc, char *argv[])
 		operator_function(&head, line_count);
 		}
 	}
-	fclose(file), free(str), monty_free(head);
+	fclose(file), free(str), get_free(head);
 	return (0);
 }

@@ -16,20 +16,20 @@ void (*go(char *op_f, unsigned int l, stack_t **stak))(stack_t**, unsigned int)
 	int count;
 
 	instruction_t operation[] = {
-		{"pall", monty_pall},
-		{"add", monty_add},
-		{"pint", monty_pint},
-		{"swap", monty_swap},
-		{"pop", monty_pop},
-		{"sub", monty_sub},
-		{"div", monty_div},
-		{"mul", monty_mul},
-		{"mod", monty_mod},
-		{"nop", monty_nop},
-		{"rotl", monty_rotl},
-		{"rotr", monty_rotr},
-		{"pchar", monty_pchar},
-		{"pstr", monty_pstr},
+		{"pall", get_pall},
+		{"add", get_add},
+		{"pint", get_pint},
+		{"swap", get_swap},
+		{"pop", get_pop},
+		{"sub", get_sub},
+		{"div", get_div},
+		{"mul", get_mul},
+		{"mod", get_mod},
+		{"nop", get_nop},
+		{"rotl", get_rotl},
+		{"rotr", get_rotr},
+		{"pchar", get_pchar},
+		{"pstr", get_pstr},
 		{NULL, NULL}
 	};
 
@@ -42,6 +42,6 @@ void (*go(char *op_f, unsigned int l, stack_t **stak))(stack_t**, unsigned int)
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", l, op_f);
 	fclose(file);
-	monty_free(*stak);
+	get_free(*stak);
 	exit(EXIT_FAILURE);
 }
